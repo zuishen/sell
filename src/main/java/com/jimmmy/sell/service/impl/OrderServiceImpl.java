@@ -144,6 +144,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    @Transactional
     public OrderDTO finish(OrderDTO orderDTO) {
         //判断订单状态
         if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
@@ -163,7 +164,29 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    @Transactional
     public OrderDTO paid(OrderDTO orderDTO) {
-        return null;
+        //判断订单状态
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
+            log.error("[订单支付完成] 订单状态不正确，orderId={}, orderSTATUS={}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+        //判断支付状态
+        if (!orderDTO.getPayStatus().equals(PayStatusEnum.UNPAY.getCode())) {
+            log.error("[订单支付完成] 订单支付状态不正确，orderDTO={}", orderDTO);
+            throw new SellException(ResultEnum.ORRDER_PAY_STATUS_ERROR);
+        }
+
+        //修改支付状态
+        orderDTO.setPayStatus(PayStatusEnum.PAID.getCode());
+        OrderMaster orderMaster = new OrderMaster();
+        BeanUtils.copyProperties(orderDTO, orderMaster);
+        OrderMaster result = orderMasterRepositoy.save(orderMaster);
+        if (result == null) {
+            log.error("[订单支付完成] 更新失败, orderMaster={}", orderMaster);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+
+        return orderDTO;
     }
 }
