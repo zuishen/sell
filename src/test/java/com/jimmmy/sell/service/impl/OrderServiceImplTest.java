@@ -2,6 +2,7 @@ package com.jimmmy.sell.service.impl;
 
 import com.jimmmy.sell.domain.OrderDetail;
 import com.jimmmy.sell.dto.OrderDTO;
+import com.jimmmy.sell.enums.OrderStatusEnum;
 import com.jimmmy.sell.repository.OrderDetailRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -73,10 +74,14 @@ public class OrderServiceImplTest {
 
     @Test
     public void cancel() throws Exception {
+        OrderDTO result = orderService.findOne(ORDER_ID);
+        result = orderService.cancel(result);
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(), result.getOrderStatus());
     }
 
     @Test
     public void finish() throws Exception {
+
     }
 
     @Test
