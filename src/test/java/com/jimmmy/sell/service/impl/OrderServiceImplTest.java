@@ -81,7 +81,9 @@ public class OrderServiceImplTest {
 
     @Test
     public void finish() throws Exception {
-
+        OrderDTO result = orderService.findOne(ORDER_ID);
+        result = orderService.finish(result);
+        Assert.assertEquals(OrderStatusEnum.FINISH.getCode(), result.getOrderStatus());
     }
 
     @Test
