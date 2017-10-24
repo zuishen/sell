@@ -6,6 +6,7 @@ import com.jimmmy.sell.dto.OrderDTO;
 import com.jimmmy.sell.enums.ResultEnum;
 import com.jimmmy.sell.exception.SellException;
 import com.jimmmy.sell.form.OrderForm;
+import com.jimmmy.sell.service.BuyerService;
 import com.jimmmy.sell.service.OrderService;
 import com.jimmmy.sell.utils.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,9 @@ public class BuyerOrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private BuyerService buyerService;
 
     // 创建订单
     @PostMapping("/create")
@@ -74,8 +78,7 @@ public class BuyerOrderController {
     @GetMapping("/detail")
     public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
                                      @RequestParam("orderId") String orderId) {
-        //TODO unsafe
-        OrderDTO orderDTO = orderService.findOne(orderId);
+        OrderDTO orderDTO = buyerService.findOrderOne(openid, orderId);
         return ResultVOUtil.success(orderDTO);
     }
 
@@ -83,9 +86,7 @@ public class BuyerOrderController {
     @PostMapping("/cancel")
     public ResultVO<OrderDTO> cancel(@RequestParam("openid") String openid,
                                      @RequestParam("orderId") String orderId) {
-        //TODO unsafe
-        OrderDTO orderDTO = orderService.findOne(orderId);
-        orderService.cancel(orderDTO);
+        buyerService.cancelOrder(openid, orderId);
 
         return ResultVOUtil.success();
     }
