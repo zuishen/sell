@@ -9,3 +9,6 @@ spring:
 server:
   context-path: /sell
   port: 8082
+wechat:
+  mpAppId: wx27f265f7bb87f636
+  mpAppSecret: f284e49e5c55ad31c442c7a14253c661
