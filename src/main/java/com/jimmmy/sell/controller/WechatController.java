@@ -49,7 +49,7 @@ public class WechatController {
             throw new SellException(ResultEnum.WECHAT_MP_ERROR.getCode(), e.getError().getErrorMsg());
         }
         String openId = wxMpOAuth2AccessToken.getOpenId();
-        log.info("returnUrl: {}", returnUrl);
+        log.info("openId: {}", openId);
         return "redirect:" + returnUrl + "?openid=" + openId;
 
     }
