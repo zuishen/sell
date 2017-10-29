@@ -3,6 +3,7 @@ package com.jimmmy.sell.service;
 import com.jimmmy.sell.domain.OrderMaster;
 import com.jimmmy.sell.dto.CartDTO;
 import com.jimmmy.sell.dto.OrderDTO;
+import com.sun.webkit.PageCache;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -27,5 +28,8 @@ public interface OrderService {
 
     /** 支付订单 */
     OrderDTO paid(OrderDTO orderDTO);
+
+    /** 查询所有订单 */
+    Page<OrderDTO> findList(Pageable pageable);
 
 }
