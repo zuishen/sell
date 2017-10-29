@@ -40,6 +40,37 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="col-md-12 column">
+                    <ul class="pagination pull-right">
+                        <#if currentPage lte 1>
+                            <li class="disabled">
+                                <a href="/seller/order/list?page=${currentPage - 1}&size=${size}">上一页</a>
+                            </li>
+                        <#else>
+                            <li>
+                                <a href="/seller/order/list?page=${currentPage - 1}&size=${size}">上一页</a>
+                            </li>
+                        </#if>
+
+                        <#list 1..orderDTOPage.getTotalPages() as index>
+                            <#if currentPage == index>
+                                <li class="disabled"><a href="/seller/order/list?page=${index}&size=${size}">${index}</a></li>
+                            <#else>
+                                <li><a href="/seller/order/list?page=${index}&size=${size}">${index}</a></li>
+                            </#if>
+
+                        </#list>
+                        <#if currentPage gte orderDTOPage.getTotalPages()>
+                            <li class="disabled">
+                                <a href="/seller/order/list?page=${currentPage + 1}&size=${size}">下一页</a>
+                            </li>
+                        <#else>
+                            <li>
+                                <a href="/seller/order/list?page=${currentPage + 1}&size=${size}">下一页</a>
+                            </li>
+                        </#if>
+                    </ul>
+                </div>
             </div>
         </div>
     </body>
