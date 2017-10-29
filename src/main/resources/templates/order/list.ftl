@@ -33,7 +33,10 @@
                                     <td>${orderDTO.getOrderStatusEnum().msg}</td>
                                     <td>${orderDTO.getPayStatusEnum().msg}</td>
                                     <td>${orderDTO.createTime}</td>
-                                    <td>详情</td>
+                                    <td>
+                                        <a href="/seller/order/detail?orderId=${orderDTO.orderId}">详情</a>
+
+                                    </td>
                                     <td>
                                         <#if orderDTO.getOrderStatusEnum().msg != "已取消">
                                             <a href="/seller/order/cancel?orderId=${orderDTO.orderId}">取消</a>
@@ -44,6 +47,7 @@
                         </tbody>
                     </table>
                 </div>
+                <#-- 分页 -->
                 <div class="col-md-12 column">
                     <ul class="pagination pull-right">
                         <#if currentPage lte 1>
