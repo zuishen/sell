@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.net.URLDecoder;
 import java.util.Map;
 
 @Controller
@@ -27,16 +28,17 @@ public class PayController {
 
     @GetMapping("/pay")
     public ModelAndView index(@RequestParam("openid") String openid,
-                        @RequestParam("orderId") String ordeId,
+                        @RequestParam("orderId") String orderId,
                         @RequestParam("returnUrl") String returnUrl,
                         Map<String, Object> map) {
         log.info("openid={}", openid);
         // 1 查询订单"1508780524377710310"
-        OrderDTO orderDTO = orderService.findOne(ordeId);
+        OrderDTO orderDTO = orderService.findOne(orderId);
         if (orderDTO == null) {
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         // 发起支付
+        returnUrl = URLDecoder.decode(returnUrl);
         PayResponse payResponse = payService.create(orderDTO);
         map.put("payResponse", payResponse);
         map.put("returnUrl", returnUrl);
@@ -64,8 +66,10 @@ public class PayController {
 //
 //    }
     @PostMapping("/notify")
-    public void notify(@RequestBody String notifyData) {
+    public ModelAndView notify(@RequestBody String notifyData) {
+        payService.notify(notifyData);
 
-        payService.notify();
+        // 返回给微信处理结果
+        return new ModelAndView("pay/success");
     }
 }

@@ -11,7 +11,7 @@ public class ResultVOUtil {
     public static ResultVO success(Object productVOList) {
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(0);
-        resultVO.setMgs("成功");
+        resultVO.setMsg("成功");
 
         resultVO.setData(productVOList);
         return resultVO;
@@ -24,7 +24,7 @@ public class ResultVOUtil {
     public static ResultVO error(Integer code, String msg) {
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(code);
-        resultVO.setMgs(msg);
+        resultVO.setMsg(msg);
 
         //resultVO.setData(null);
         return resultVO;

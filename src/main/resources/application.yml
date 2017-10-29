@@ -15,4 +15,4 @@ wechat:
   mchId: 1483469312
   mchKey: C5245D70627C1F8E9964D494B0735025
   keyPath: h5.p12
-  notifyUrl: http://jimmmy.natapp1.cc/sell/pay/notify
+  notifyUrl: http://jimmmy.natapp1.cc/notify
