@@ -16,3 +16,9 @@ wechat:
   mchKey: C5245D70627C1F8E9964D494B0735025
   keyPath: h5.p12
   notifyUrl: http://jimmmy.natapp1.cc/notify
+  openAppId: wx6ad144e54af67d87
+  openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
+projectUrl:
+  wechatMpAuthorize: http://jimmmy.natapp1.cc
+  wechatOpenAuthorize: http://sell.springboot.cn/sell/qr/oTgZpwUcJQY5OenBIZnI1DcXxOOo
+  sell:
